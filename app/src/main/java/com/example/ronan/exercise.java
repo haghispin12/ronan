@@ -1,14 +1,20 @@
 package com.example.ronan;
 
+import android.content.Intent;
+
 import java.util.Random;
 
 public class exercise {
     private int num1;
     private int num2;
     private int result;
+
+
     public exercise(){
 
     }
+
+
    public void r1 (){
        Random r = new Random();
        num1 = r.nextInt(9)+1;
