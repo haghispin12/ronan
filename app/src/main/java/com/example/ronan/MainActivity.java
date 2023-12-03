@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -30,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
     private Button check;
     private Button save;
     private Button show;
+    private TextView score;
     exercise e;
     ModelView vm;
-    user u;
 
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String userName = intent.getStringExtra("username");
         showToast("Welcome "+userName);
-        u.setName(userName);
 
 
         setContentView(R.layout.activity_main);
@@ -54,9 +56,12 @@ public class MainActivity extends AppCompatActivity {
         check = findViewById(R.id.check);
         save = findViewById(R.id.save);
         show = findViewById(R.id.show);
+        score = findViewById(R.id.Score);
+
 
         vm = new ViewModelProvider(this).get(ModelView.class);
         e= new exercise();
+        vm.updateName(userName);
         vm.Vnum1.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -69,6 +74,13 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(Integer integer) {
                 integer = vm.getVnum2();
                 num2.setText(integer+"");
+            }
+        });
+        vm.VScore.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+
+                score.setText(integer+"");
             }
         });
 
@@ -102,8 +114,12 @@ public class MainActivity extends AppCompatActivity {
                 int ark = vm.getVnum1()*vm.getVnum2();
                 if(ark == vm.getRes()){
                     showToast("Good job");
+                    score.setText(vm.VgetScore()+"");
+
                 }else{
                     showToast("Try harder");}
+
+
                 num1.setText("");
                 num2.setText("");
                 num3.setText("");

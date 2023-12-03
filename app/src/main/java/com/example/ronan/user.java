@@ -1,21 +1,29 @@
 package com.example.ronan;
 
+import android.view.ViewDebug;
+
 public class user {
     private String name;
     private int score;
 
-    public user(){
-        name="";
-        score=0;
+
+
+    public user() {
+        name = "";
+        score = 0;
     }
-    public void setName(String name){
-        this.name = name;
+
+    public void setName(String s) {
+        this.name = s;
     }
-    public void addScore(int n){
+    public void setScore(int n){
         score+=n;
     }
+
     public int getScore(){
-        return score;
+       return score;
     }
+
+
 
 }

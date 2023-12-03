@@ -8,12 +8,14 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Math Exercises"
+        android:text="Score"
         android:textSize="40sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="InvalidId" />
 
     <LinearLayout
         android:layout_width="match_parent"
