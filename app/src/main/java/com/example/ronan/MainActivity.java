@@ -1,6 +1,12 @@
 package com.example.ronan;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,25 +23,39 @@ import android.widget.Toast;
 import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
+
+
     private void showToast(String s){
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
+
     private Button etgar;
     private Button multiply20;
     private Button timeTable;
     private TextView num1;
     private TextView num2;
     private EditText num3;
-
-
+    private Button rate;
     private Button check;
-    private Button save;
+    private Button Msave;
     private Button show;
     private TextView score;
     exercise e;
     ModelView vm;
+    fragment ft;
 
 
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    int nyrate = result.getData().getIntExtra("rate", 0);
+                    rate.setText(nyrate+"");
+                }
+            }
+    );
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         showToast("Welcome "+userName);
 
 
+
         setContentView(R.layout.activity_main);
         etgar = findViewById(R.id.etgar);
         multiply20 = findViewById(R.id.multiply20);
@@ -54,9 +75,12 @@ public class MainActivity extends AppCompatActivity {
         num2 = findViewById(R.id.num2);
         num3 = findViewById(R.id.num3);
         check = findViewById(R.id.check);
-        save = findViewById(R.id.save);
+        Msave = findViewById(R.id.MSave);
         show = findViewById(R.id.show);
         score = findViewById(R.id.Score);
+        rate = findViewById(R.id.Rate);
+
+
 
 
         vm = new ViewModelProvider(this).get(ModelView.class);
@@ -83,7 +107,13 @@ public class MainActivity extends AppCompatActivity {
                 score.setText(integer+"");
             }
         });
-
+        rate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),RateActivity.class);
+                activityResultLauncher.launch(intent);
+            }
+        });
         etgar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +138,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        Msave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,6 +159,17 @@ public class MainActivity extends AppCompatActivity {
                 num1.setText("");
                 num2.setText("");
                 num3.setText("");
+            }
+        });
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 ft = new fragment();
+                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+
+                trans.add(R.id.frameLayout, ft);
+
+                trans.commit();
             }
         });
     }
