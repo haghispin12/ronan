@@ -23,6 +23,7 @@ public class ModelView extends  ViewModel{
         Vnum1.setValue(exs.getNum1());
         Vnum2.setValue(exs.getNum2());
         res = exs.getResult();
+
         us.setScore(5);
 
 
@@ -57,7 +58,8 @@ public class ModelView extends  ViewModel{
         return Vnum2.getValue();
     }
     public int getRes(){
-        return res;
+       int res = Vnum1.getValue()*Vnum2.getValue();
+       return res;
     }
 
 }

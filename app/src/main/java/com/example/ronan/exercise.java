@@ -26,7 +26,7 @@ public class exercise {
 
        num1 = r.nextInt(9)+1;
        num2 = r.nextInt(19)+1;
-       result= num1*num2;
+       result = num1*num2;
    }
    public void r3(){
        Random r = new Random();
@@ -47,7 +47,8 @@ public class exercise {
         return this.num2;
    }
    public int getResult(){
-        return this.result;
+
+        return num1*num2;
    }
    public void setNum1(int n){
         this.num1 = n;

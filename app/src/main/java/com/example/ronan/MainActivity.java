@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView score;
     exercise e;
     ModelView vm;
-    fragment ft;
 
 
 
@@ -60,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         String userName = intent.getStringExtra("username");
         showToast("Welcome "+userName);
 
 
 
-        setContentView(R.layout.activity_main);
+
         etgar = findViewById(R.id.etgar);
         multiply20 = findViewById(R.id.multiply20);
         timeTable = findViewById(R.id.timeTable);
@@ -105,6 +104,18 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(Integer integer) {
 
                 score.setText(integer+"");
+            }
+        });
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+
+                trans.add(R.id.frameLayout, new fragment());
+
+                trans.commit();
+
             }
         });
         rate.setOnClickListener(new View.OnClickListener() {
@@ -161,17 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 num3.setText("");
             }
         });
-        show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                 ft = new fragment();
-                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
 
-                trans.add(R.id.frameLayout, ft);
-
-                trans.commit();
-            }
-        });
     }
 
 
