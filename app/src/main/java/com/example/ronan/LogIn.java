@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class LogIn extends AppCompatActivity {
+
     private EditText Name;
     private Button Submit;
 
@@ -29,7 +30,6 @@ public class LogIn extends AppCompatActivity {
 
 
 
-
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,6 +40,7 @@ public class LogIn extends AppCompatActivity {
                 myEdit.apply();
 
 
+
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 intent.putExtra("username",Name.getText().toString());
                 startActivity(intent);
@@ -48,5 +49,6 @@ public class LogIn extends AppCompatActivity {
 
             }
         });
+
     }
-}
+    }

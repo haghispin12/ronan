@@ -12,6 +12,7 @@ public  class RateActivity extends AppCompatActivity  {
 
     SeekBar seekbar;
     Button save;
+    private int sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,11 +24,13 @@ public  class RateActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 Intent inn = new Intent();
-                inn.putExtra("rate",seekbar.getProgress());
-                setResult(RESULT_OK,inn);
+                inn.putExtra("rate", seekbar.getProgress());
+
+                setResult(RESULT_OK, inn);
 
                 finish();
             }
         });
     }
+
 }

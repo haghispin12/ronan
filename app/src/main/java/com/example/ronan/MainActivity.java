@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     int nyrate = result.getData().getIntExtra("rate", 0);
+                    vm.setRate(nyrate);
                     rate.setText(nyrate+"");
                 }
             }
@@ -158,7 +159,8 @@ public class MainActivity extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int ark = vm.getVnum1()*vm.getVnum2();
+                String s = num3.getText().toString();
+                int ark = Integer.valueOf(s);
                 if(ark == vm.getRes()){
                     showToast("Good job");
                     score.setText(vm.VgetScore()+"");

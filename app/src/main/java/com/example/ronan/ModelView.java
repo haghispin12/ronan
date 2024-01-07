@@ -2,13 +2,16 @@ package com.example.ronan;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.MutableLiveData;
 public class ModelView extends  ViewModel{
-
+    LogIn ln;
     user us;
     exercise exs;
+    RateActivity ra;
     MutableLiveData<Integer> VScore;
     MutableLiveData<Integer> Vnum1;
     MutableLiveData<Integer> Vnum2;
+    private String name;
     private int res;
+    private int rate;
 
     public ModelView(){
         exs=new exercise();
@@ -33,8 +36,10 @@ public class ModelView extends  ViewModel{
         Vnum1.setValue(exs.getNum1());
         Vnum2.setValue(exs.getNum2());
         res = exs.getResult();
-        us.setScore(10);
-    }
+
+            us.setScore(10);
+        }
+
     public void VEtgar(){
         exs.r3();
         Vnum1.setValue(exs.getNum1());
@@ -43,6 +48,7 @@ public class ModelView extends  ViewModel{
         us.setScore(15);
     }
     public void updateName(String s){
+        name = s;
         us.setName(s);
     }
     public int VgetScore(){
@@ -57,9 +63,19 @@ public class ModelView extends  ViewModel{
     public int getVnum2(){
         return Vnum2.getValue();
     }
-    public int getRes(){
-       int res = Vnum1.getValue()*Vnum2.getValue();
-       return res;
+    public  String getName(){
+
+            return us.getName();
+    }
+    public int getRes() {
+        int res = Vnum1.getValue() * Vnum2.getValue();
+        return res;
+    }
+    public void setRate(int n){
+        rate = n;
+    }
+    public int getRate(){
+        return rate;
     }
 
 }

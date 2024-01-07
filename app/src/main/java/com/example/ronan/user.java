@@ -19,6 +19,9 @@ public class user {
     public void setScore(int n){
         score+=n;
     }
+    public String getName(){
+        return name;
+    }
 
     public int getScore(){
        return score;
