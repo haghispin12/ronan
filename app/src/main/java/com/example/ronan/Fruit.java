@@ -2,7 +2,7 @@ package com.example.ronan;
 
 import android.graphics.drawable.Drawable;
 
-public class Fruit extends user {
+public class Fruit {
     private String name;
     private Drawable drawable;
 

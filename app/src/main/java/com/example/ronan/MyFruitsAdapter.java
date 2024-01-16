@@ -50,7 +50,7 @@ public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyView
             FruitName = itemView.findViewById(R.id.FruitName);
             FruitImage = itemView.findViewById(R.id.FruitImage);
         }
-        public void bind (final user item,final OnItemClickListener listener){
+        public void bind (final Fruit item, final OnItemClickListener listener){
             FruitName.setText(fruit.getName());
             FruitImage.setImageDrawable(fruit.getDrawable());
             itemView.setOnClickListener(new View.OnClickListener(){
@@ -59,6 +59,7 @@ public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyView
                     listener.onItemClick(fruit);
                 }
             });
+
         }
     }
 }

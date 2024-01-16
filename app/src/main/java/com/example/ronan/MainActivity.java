@@ -111,11 +111,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+//                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+//
+//                trans.add(R.id.frameLayout, new fragment());
+//
+//                trans.commit();
 
-                trans.add(R.id.frameLayout, new fragment());
-
-                trans.commit();
 
             }
         });

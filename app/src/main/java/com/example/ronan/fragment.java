@@ -37,6 +37,7 @@ public class fragment extends Fragment {
     ModelView vm1;
     Uri uri;
 
+
     Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
 
