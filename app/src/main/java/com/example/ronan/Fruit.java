@@ -4,22 +4,24 @@ import android.graphics.drawable.Drawable;
 
 public class Fruit {
     private String name;
-    private Drawable drawable;
+    private int drawable;
 
-    public Fruit(String name) {
+    public Fruit(String name, int banana) {
         this.name = name;
+        this.drawable = banana;
+
     }
 
-    public Fruit(Drawable drawable) {
+    public Fruit(int drawable) {
         this.drawable = drawable;
     }
 
-    public Drawable getDrawable() {
+    public int getDrawable() {
 
         return drawable ;
     }
 
-    public void setDrawable(Drawable drawable) {
+    public void setDrawable(int drawable) {
         this.drawable = drawable;
     }
 

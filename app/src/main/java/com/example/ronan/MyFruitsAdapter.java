@@ -18,7 +18,7 @@ public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyView
     }
     private ArrayList<Fruit> fruits;
     private OnItemClickListener listener;
-    Fruit fruit;
+
 
     public MyFruitsAdapter(ArrayList<Fruit> fruits, OnItemClickListener listener){
         this.fruits = fruits;
@@ -51,12 +51,12 @@ public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyView
             FruitImage = itemView.findViewById(R.id.FruitImage);
         }
         public void bind (final Fruit item, final OnItemClickListener listener){
-            FruitName.setText(fruit.getName());
-            FruitImage.setImageDrawable(fruit.getDrawable());
+            FruitName.setText(item.getName());
+            FruitImage.setImageResource(item.getDrawable());
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(fruit);
+                    listener.onItemClick(item);
                 }
             });
 
