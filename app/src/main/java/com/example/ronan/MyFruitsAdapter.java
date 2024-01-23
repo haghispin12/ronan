@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyViewHolder> {
 
     public interface OnItemClickListener{
-        void onItemClick(Fruit item);
+
+        public void onItemClick(Fruit item);
     }
     private ArrayList<Fruit> fruits;
     private OnItemClickListener listener;
@@ -48,7 +49,7 @@ public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyView
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             FruitName = itemView.findViewById(R.id.FruitName);
-            FruitImage = itemView.findViewById(R.id.FruitImage);
+           FruitImage = itemView.findViewById(R.id.FruitImage);
         }
         public void bind (final Fruit item, final OnItemClickListener listener){
             FruitName.setText(item.getName());

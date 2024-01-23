@@ -1,5 +1,7 @@
 package com.example.ronan;
 
+import static com.example.ronan.R.id.rcShowUsers;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,8 +18,8 @@ public class ShowAllFruits extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_all_fruits);
-          rcShowFruits = findViewById(R.id.rcShowFruits);
+        setContentView(R.layout.fragment_showusers);
+         rcShowFruits = findViewById(rcShowUsers);
 
         ArrayList<Fruit> fruits = new ArrayList<>();
         fruits.add (new Fruit("banana",R.drawable.banana));

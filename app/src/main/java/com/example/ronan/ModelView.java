@@ -1,4 +1,7 @@
 package com.example.ronan;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.MutableLiveData;
 public class ModelView extends  ViewModel{
@@ -12,6 +15,7 @@ public class ModelView extends  ViewModel{
     private String name;
     private int res;
     private int rate;
+    SQLiteDatabase database;
 
     public ModelView(){
         exs=new exercise();
@@ -76,6 +80,11 @@ public class ModelView extends  ViewModel{
     }
     public int getRate(){
         return rate;
+    }
+
+    public void insertUser(Context context){
+        DBHelper dbHelper = new DBHelper(context);
+        dbHelper.insert(us, context);
     }
 
 }

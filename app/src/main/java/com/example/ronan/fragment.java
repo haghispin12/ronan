@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class fragment extends Fragment {
 
@@ -36,6 +37,7 @@ public class fragment extends Fragment {
     private Button btn;
     ModelView vm1;
     Uri uri;
+    private RecyclerView rcShowAllUsers;
 
 
     Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -86,9 +88,16 @@ public class fragment extends Fragment {
                 startCamera.launch(cameraIntent);
             }
         });
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
     return view;
     }
+
 
     private void initView(View view) {
         edt = view.findViewById(R.id.EditText);
@@ -97,6 +106,7 @@ public class fragment extends Fragment {
         bt = view.findViewById(R.id.button5);
         img = view.findViewById(R.id.imageView2);
         btn = view.findViewById(R.id.button6);
+        //rcShowAllUsers = view.findViewById(R.id.rcShowUsers);
 
     }
 }

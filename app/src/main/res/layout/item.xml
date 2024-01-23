@@ -12,13 +12,22 @@
     <ImageView
         android:id="@+id/FruitImage"
         android:layout_width="150dp"
-        android:layout_height="150dp"
-
-         />
+        android:layout_height="150dp" />
 
     <TextView
+
         android:id="@+id/FruitName"
-        android:layout_width="wrap_content"
-        android:layout_height="127dp"
-        android:text="TextView" />
+        android:layout_width="130dp"
+        android:layout_height="46dp"
+        android:text="Name" />
+
+    <TextView
+        android:id="@+id/Score"
+        android:layout_width="102dp"
+        android:layout_height="47dp"
+        android:text="Score" />
+
+
+
+
 </LinearLayout>
