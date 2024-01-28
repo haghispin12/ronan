@@ -10,13 +10,13 @@
 
 
     <ImageView
-        android:id="@+id/FruitImage"
+        android:id="@+id/UserImg"
         android:layout_width="150dp"
         android:layout_height="150dp" />
 
     <TextView
 
-        android:id="@+id/FruitName"
+        android:id="@+id/UserName"
         android:layout_width="130dp"
         android:layout_height="46dp"
         android:text="Name" />

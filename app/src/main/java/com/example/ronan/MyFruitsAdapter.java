@@ -48,8 +48,8 @@ public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyView
             ImageView FruitImage;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            FruitName = itemView.findViewById(R.id.FruitName);
-           FruitImage = itemView.findViewById(R.id.FruitImage);
+           // FruitName = itemView.findViewById(R.id.FruitName);
+          // FruitImage = itemView.findViewById(R.id.FruitImage);
         }
         public void bind (final Fruit item, final OnItemClickListener listener){
             FruitName.setText(item.getName());

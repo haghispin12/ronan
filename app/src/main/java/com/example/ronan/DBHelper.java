@@ -3,6 +3,7 @@ package com.example.ronan;
 
 
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.ronan.user;
@@ -71,7 +73,7 @@ import java.util.ArrayList;
 
         // get the user back with the id
         // also possible to return only the id
-        public long insert(user user,Context context){
+        public long insert(@NonNull user user, Context context){
             database = getWritableDatabase(); // get access to write the database
             ContentValues values = new ContentValues();
             values.put(COLUMN_NAME, user.getName());
@@ -120,28 +122,28 @@ import java.util.ArrayList;
 //        }
 //
 //        // return all rows in table
-//        public ArrayList<User> selectAll(){
-//            database = getReadableDatabase(); // get access to read the database
-//            ArrayList<User> users = new ArrayList<>();
-//            Cursor cursor = database.query(TABLE_RECORD, allColumns, null, null, null, null, null); // cursor points at a certain row
-//            if (cursor.getCount() > 0) {
-//                while (cursor.moveToNext()) {
-//                    String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-//                    int rating = cursor.getInt(cursor.getColumnIndex(COLUMN_RATE));
-//                    int score = cursor.getInt(cursor.getColumnIndex(COLUMN_SCORE));
-//                    byte[] bytes = cursor.getBlob(cursor.getColumnIndex(COLUMN_PICTURE));
-//
-//                    Bitmap bitmap = getImage(bytes);
-//                    long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-//                    User user= new User(id,name,rating,bitmap,score);
-//                    users.add(user);
-//                }
-//            }
-//            cursor.close();
-//            database.close();
-//            return users;
-//        }
-//
+        public ArrayList<user> selectAll(){
+            database = getReadableDatabase(); // get access to read the database
+            ArrayList<user> users = new ArrayList<>();
+            Cursor cursor = database.query(TABLE_RECORD, allColumns, null, null, null, null, null); // cursor points at a certain row
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+                    @SuppressLint("Range") int rating = cursor.getInt(cursor.getColumnIndex(COLUMN_RATE));
+                    @SuppressLint("Range") int score = cursor.getInt(cursor.getColumnIndex(COLUMN_SCORE));
+                    @SuppressLint("Range") byte[] bytes = cursor.getBlob(cursor.getColumnIndex(COLUMN_PICTURE));
+
+                    Bitmap bitmap = getImage(bytes);
+                    @SuppressLint("Range") long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
+                    user us= new user(id,name,rating,bitmap,score);
+                    users.add(us);
+                }
+            }
+            cursor.close();
+            database.close();
+            return users;
+        }
+
 //        //
 //        // I prefer using this one...
 //        //

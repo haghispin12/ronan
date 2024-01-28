@@ -19,7 +19,7 @@ public class ShowAllFruits extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_showusers);
-         rcShowFruits = findViewById(rcShowUsers);
+         //rcShowFruits = findViewById(rcShowUsers);
 
         ArrayList<Fruit> fruits = new ArrayList<>();
         fruits.add (new Fruit("banana",R.drawable.banana));

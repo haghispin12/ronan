@@ -110,13 +110,13 @@ public class MainActivity extends AppCompatActivity {
         show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent intent1 = new Intent(getApplicationContext(),ShowAllFruits.class);
-               startActivity(intent1);
-//                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-//
-//                trans.add(R.id.frameLayout, new fragment());
-//
-//                trans.commit();
+//               Intent intent1 = new Intent(getApplicationContext(),ShowAllFruits.class);
+//               startActivity(intent1);
+                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+
+                trans.add(R.id.frameLayout, new fragment());
+
+                trans.commit();
 
 
             }

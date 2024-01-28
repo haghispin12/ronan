@@ -1,27 +1,43 @@
 package com.example.ronan;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 public class user {
     private String name;
     private int score;
     private Uri uri;
+    private int rate;
     private long id;
     ModelView vm;
+    private Bitmap bitmap;
 
 
-    public user(String n, int s, Uri u,long i) {
-        name = n;
-        score = s;
-        uri = u;
-        id = i;
+//    public user(String n, int s, Uri u,long i) {
+//        name = n;
+//        score = s;
+//        uri = u;
+//        id = i;
+//    }
+    public user(long id, String name, int rate, Bitmap bitmap, int score){
+           this.name = "";
+           this.score = 0;
+           this.rate = rate;
+           this.bitmap = bitmap;
+           this.id = 0;
     }
-    public user (){
-           name = "";
-           score = 0;
-           uri = null;
-           id = 0;
+    public user(){
+
     }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
     public void setName(String s) {
         this.name = s;
     }
@@ -32,9 +48,13 @@ public class user {
         return name;
     }
     public int getRate(){
-         int rate = vm.getRate();
         return rate;
     }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+
     public long getId() {
         return id;
     }
