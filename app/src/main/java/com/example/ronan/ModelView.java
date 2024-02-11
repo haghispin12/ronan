@@ -19,8 +19,10 @@ public class ModelView extends  ViewModel{
     MutableLiveData<Integer> Vnum2;
     private String name;
     private int res;
-    private int rate;
+    MutableLiveData<Integer> rate;
+    MutableLiveData<ArrayList<user>> myUsers;
     SQLiteDatabase database;
+
 
     public ModelView(){
         exs=new exercise();
@@ -28,6 +30,7 @@ public class ModelView extends  ViewModel{
         Vnum2 = new MutableLiveData<>();
         us = new user();
         VScore = new MutableLiveData<>();
+        rate = new MutableLiveData<>();
     }
 
     public void Vtimetable(){
@@ -83,11 +86,9 @@ public class ModelView extends  ViewModel{
         int res = Vnum1.getValue() * Vnum2.getValue();
         return res;
     }
-    public void setRate(int n){
-        rate = n;
-    }
+
     public int getRate(){
-        return rate;
+        return us.getRate();
     }
     ArrayList<user> users = new ArrayList<>();
     public void VInsert(Context context){
@@ -97,5 +98,8 @@ public class ModelView extends  ViewModel{
 
     }
 
+    public void setRate(int n) {
+        us.setRate(n);
+    }
 }
 

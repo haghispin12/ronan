@@ -24,6 +24,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,6 +73,7 @@ public class fragment extends Fragment {
 
     View view= inflater.inflate(R.layout.fragment_showusers,container,false);
     initView(view);
+
         vm1 = new ViewModelProvider(requireActivity()).get(ModelView.class);
 
         edt.setText(vm1.getName());
@@ -80,6 +83,8 @@ public class fragment extends Fragment {
 
         Integer h = vm1.getRate();
         tv.setText(h+"");
+
+
 
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
