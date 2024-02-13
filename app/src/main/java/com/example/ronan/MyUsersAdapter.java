@@ -57,7 +57,7 @@ public class MyUsersAdapter extends RecyclerView.Adapter<MyUsersAdapter.MyViewHo
 
         public void bind(final user item, final MyUsersAdapter.OnItemClickListener listener) {
             username.setText(item.getName());
-            userimage.setImageURI(item.getUri());
+            userimage.setImageBitmap(item.getBitmap());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

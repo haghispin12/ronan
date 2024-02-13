@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 
-public class ModelView extends  ViewModel{
+public class ModelView<users> extends  ViewModel{
     LogIn ln;
     user us;
     exercise exs;
@@ -20,6 +20,7 @@ public class ModelView extends  ViewModel{
     private String name;
     private int res;
     MutableLiveData<Integer> rate;
+
     MutableLiveData<ArrayList<user>> myUsers;
     SQLiteDatabase database;
 
@@ -31,6 +32,7 @@ public class ModelView extends  ViewModel{
         us = new user();
         VScore = new MutableLiveData<>();
         rate = new MutableLiveData<>();
+        myUsers = new MutableLiveData<>();
     }
 
     public void Vtimetable(){
@@ -91,15 +93,22 @@ public class ModelView extends  ViewModel{
         return us.getRate();
     }
     ArrayList<user> users = new ArrayList<>();
-    public void VInsert(Context context){
-        DBHelper dbHelper = new DBHelper(context);
-        dbHelper.insert(us, context);
-        users = dbHelper.selectAll();
 
+    public long VInsert(Context context){
+        DBHelper dbHelper = new DBHelper(context);
+        long id = dbHelper.insert(us, context);
+        users = dbHelper.selectAll();
+        myUsers.setValue(users);
+        return id;
     }
 
     public void setRate(int n) {
         us.setRate(n);
     }
+
+    public void addUser(){
+
+    }
 }
+
 

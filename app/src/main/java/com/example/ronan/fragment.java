@@ -2,6 +2,7 @@ package com.example.ronan;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -25,10 +27,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class fragment extends Fragment {
 
@@ -40,12 +45,16 @@ public class fragment extends Fragment {
     private Button btn;
     ModelView vm1;
     Uri uri;
+
     private RecyclerView rcShowAllUsers;
 
 
     Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
 
+    private void showToast(String s){
+        Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
+    }
 
     ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -64,6 +73,7 @@ public class fragment extends Fragment {
 
 
 
+    @SuppressLint("FragmentLiveDataObserve")
     @Nullable
 
 
@@ -75,6 +85,22 @@ public class fragment extends Fragment {
     initView(view);
 
         vm1 = new ViewModelProvider(requireActivity()).get(ModelView.class);
+        vm1.myUsers.observe(this, new Observer<ArrayList<user>>() {
+
+            @Override
+            public void onChanged(ArrayList<user> users) {
+                MyUsersAdapter myUsersAdapter = new MyUsersAdapter(, new MyFruitsAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Fruit item) {
+                        Toast.makeText(,item.getName(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+                rcShowAllUsers.setLayoutManager(new LinearLayoutManager());
+                rcShowAllUsers.setAdapter(myUsersAdapter);
+                rcShowAllUsers.setHasFixedSize(true);
+            }
+        });
+
 
         edt.setText(vm1.getName());
 
@@ -102,13 +128,18 @@ public class fragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                vm1.VInsert(requireActivity());
+                long id = vm1.VInsert(requireActivity());
+                if(id>0){
+                    showToast("success");
+
+
+
+                }else{showToast("failed");}
+
             }
         });
 
-//        rcShowFruits.setLayoutManager(new LinearLayoutManager(this));
-//        rcShowFruits.setAdapter(myUsersAdapter);
-//        rcShowFruits.setHasFixedSize(true);
+
     return view;
     }
 
