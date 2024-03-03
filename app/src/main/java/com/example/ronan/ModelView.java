@@ -101,6 +101,9 @@ public class ModelView<users> extends  ViewModel{
         myUsers.setValue(users);
         return id;
     }
+    public void getAll(){
+
+    }
 
     public void setRate(int n) {
         us.setRate(n);

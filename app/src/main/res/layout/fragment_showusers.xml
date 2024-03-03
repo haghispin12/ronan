@@ -58,12 +58,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Add User" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcShowUsers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item"/>
-    </LinearLayout>
+        tools:listitem="@layout/item" />
+</LinearLayout>
 
 
 

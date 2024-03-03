@@ -52,6 +52,7 @@ public class fragment extends Fragment {
     Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
 
+
     private void showToast(String s){
         Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
     }
@@ -84,18 +85,19 @@ public class fragment extends Fragment {
     View view= inflater.inflate(R.layout.fragment_showusers,container,false);
     initView(view);
 
+
         vm1 = new ViewModelProvider(requireActivity()).get(ModelView.class);
         vm1.myUsers.observe(this, new Observer<ArrayList<user>>() {
 
             @Override
             public void onChanged(ArrayList<user> users) {
-                MyUsersAdapter myUsersAdapter = new MyUsersAdapter(, new MyFruitsAdapter.OnItemClickListener() {
+                MyUsersAdapter myUsersAdapter = new MyUsersAdapter(users, new MyUsersAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(Fruit item) {
-                        Toast.makeText(,item.getName(),Toast.LENGTH_SHORT).show();
+                    public void onItemClick(user item) {
+                        Toast.makeText(requireActivity(),item.getName(),Toast.LENGTH_SHORT).show();
                     }
                 });
-                rcShowAllUsers.setLayoutManager(new LinearLayoutManager());
+                rcShowAllUsers.setLayoutManager(new LinearLayoutManager(requireActivity()));
                 rcShowAllUsers.setAdapter(myUsersAdapter);
                 rcShowAllUsers.setHasFixedSize(true);
             }
