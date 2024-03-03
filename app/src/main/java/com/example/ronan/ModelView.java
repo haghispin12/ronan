@@ -97,12 +97,12 @@ public class ModelView<users> extends  ViewModel{
     public long VInsert(Context context){
         DBHelper dbHelper = new DBHelper(context);
         long id = dbHelper.insert(us, context);
-        users = dbHelper.selectAll();
-        myUsers.setValue(users);
+        getAll(context);
         return id;
     }
-    public void getAll(){
-
+    public void getAll(Context context){
+        users = DBHelper.selectAll();
+        myUsers.setValue(users);
     }
 
     public void setRate(int n) {
