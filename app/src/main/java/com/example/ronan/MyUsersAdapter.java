@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -15,16 +14,16 @@ import java.util.ArrayList;
 public class MyUsersAdapter extends RecyclerView.Adapter<MyUsersAdapter.MyViewHolder> {
 
 
-    public interface OnItemClickListener {
+    public interface OnItemClickListener1 {
 
-        public void onItemClick(user item);
+        public void onItemClick(User item);
     }
-        private ArrayList<user> users;
-        private OnItemClickListener listener;
+        private ArrayList<User> Users;
+        private OnItemClickListener1 listener;
 
 
-    public MyUsersAdapter(ArrayList<user> users, MyUsersAdapter.OnItemClickListener listener){
-        this.users = users;
+    public MyUsersAdapter(ArrayList<User> Users, MyUsersAdapter.OnItemClickListener1 listener){
+        this.Users = Users;
         this.listener = listener;
     }
 
@@ -37,26 +36,29 @@ public class MyUsersAdapter extends RecyclerView.Adapter<MyUsersAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyUsersAdapter.MyViewHolder holder, int position) {
-        holder.bind(users.get(position),listener);
+        holder.bind(Users.get(position),listener);
     }
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return Users.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView username;
         ImageView userimage;
 
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             username = itemView.findViewById(R.id.UserName);
             userimage = itemView.findViewById(R.id.UserImg);
+
         }
 
-        public void bind(final user item, final MyUsersAdapter.OnItemClickListener listener) {
+        public void bind(final User item, final MyUsersAdapter.OnItemClickListener1 listener) {
             username.setText(item.getName());
+
             userimage.setImageBitmap(item.getBitmap());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

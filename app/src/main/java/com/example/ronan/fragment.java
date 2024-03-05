@@ -4,9 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,9 +24,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,12 +41,8 @@ public class fragment extends Fragment {
     private Button btn;
     ModelView vm1;
     Uri uri;
-
     private RecyclerView rcShowAllUsers;
-
-
     Intent shareIntent = new Intent(Intent.ACTION_SEND);
-
 
 
     private void showToast(String s){
@@ -86,14 +78,16 @@ public class fragment extends Fragment {
     initView(view);
 
 
+
         vm1 = new ViewModelProvider(requireActivity()).get(ModelView.class);
-        vm1.myUsers.observe(this, new Observer<ArrayList<user>>() {
+        vm1.getAll(requireActivity());
+        vm1.myUsers.observe(this, new Observer<ArrayList<User>>() {
 
             @Override
-            public void onChanged(ArrayList<user> users) {
-                MyUsersAdapter myUsersAdapter = new MyUsersAdapter(users, new MyUsersAdapter.OnItemClickListener() {
+            public void onChanged(ArrayList<User> Users) {
+                MyUsersAdapter myUsersAdapter = new MyUsersAdapter(Users, new MyUsersAdapter.OnItemClickListener1() {
                     @Override
-                    public void onItemClick(user item) {
+                    public void onItemClick(User item) {
                         Toast.makeText(requireActivity(),item.getName(),Toast.LENGTH_SHORT).show();
                     }
                 });

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ModelView<users> extends  ViewModel{
     LogIn ln;
-    user us;
+    User us;
     exercise exs;
     MyUsersAdapter mua;
     RateActivity ra;
@@ -21,7 +21,7 @@ public class ModelView<users> extends  ViewModel{
     private int res;
     MutableLiveData<Integer> rate;
 
-    MutableLiveData<ArrayList<user>> myUsers;
+    MutableLiveData<ArrayList<User>> myUsers;
     SQLiteDatabase database;
 
 
@@ -29,7 +29,7 @@ public class ModelView<users> extends  ViewModel{
         exs=new exercise();
         Vnum1 = new MutableLiveData<>();
         Vnum2 = new MutableLiveData<>();
-        us = new user();
+        us = new User();
         VScore = new MutableLiveData<>();
         rate = new MutableLiveData<>();
         myUsers = new MutableLiveData<>();
@@ -92,7 +92,7 @@ public class ModelView<users> extends  ViewModel{
     public int getRate(){
         return us.getRate();
     }
-    ArrayList<user> users = new ArrayList<>();
+    ArrayList<User> Users = new ArrayList<>();
 
     public long VInsert(Context context){
         DBHelper dbHelper = new DBHelper(context);
@@ -101,8 +101,9 @@ public class ModelView<users> extends  ViewModel{
         return id;
     }
     public void getAll(Context context){
-        users = DBHelper.selectAll();
-        myUsers.setValue(users);
+        DBHelper dbHelper = new DBHelper(context);
+        Users = dbHelper.selectAll();
+        myUsers.setValue(Users);
     }
 
     public void setRate(int n) {

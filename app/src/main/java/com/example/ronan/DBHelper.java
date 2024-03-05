@@ -17,12 +17,9 @@ import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.ronan.user;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
     public class DBHelper extends SQLiteOpenHelper {
@@ -73,7 +70,7 @@ import java.util.ArrayList;
 
         // get the user back with the id
         // also possible to return only the id
-        public long insert(@NonNull user user, Context context){
+        public long insert(@NonNull User user, Context context){
             database = getWritableDatabase(); // get access to write the database
             ContentValues values = new ContentValues();
             values.put(COLUMN_NAME, user.getName());
@@ -122,9 +119,9 @@ import java.util.ArrayList;
 //        }
 //
 //        // return all rows in table
-        public ArrayList<user> selectAll(){
+        public ArrayList<User> selectAll(){
             database = getReadableDatabase(); // get access to read the database
-            ArrayList<user> users = new ArrayList<>();
+            ArrayList<User> users = new ArrayList<>();
             Cursor cursor = database.query(TABLE_RECORD, allColumns, null, null, null, null, null); // cursor points at a certain row
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
@@ -135,8 +132,9 @@ import java.util.ArrayList;
 
                     Bitmap bitmap = getImage(bytes);
                     @SuppressLint("Range") long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-                    user us= new user(id,name,rating,bitmap,score);
+                    User us= new User(id,name,rating,bitmap,score);
                     users.add(us);
+                    //Users.add(us);
                 }
             }
             cursor.close();

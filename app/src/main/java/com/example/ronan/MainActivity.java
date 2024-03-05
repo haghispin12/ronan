@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
                     int nyrate = result.getData().getIntExtra("rate", 0);
                     vm.setRate(nyrate);
                     rate.setText(nyrate+"");
+//                    User u = new User();
+//                    u.setName(result.getData().getStringExtra("name"));
                 }
             }
     );

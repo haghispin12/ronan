@@ -3,7 +3,7 @@ package com.example.ronan;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
-public class user {
+public class User {
     private String name;
     private int score;
     private Uri uri;
@@ -19,14 +19,14 @@ public class user {
 //        uri = u;
 //        id = i;
 //    }
-    public user(long id, String name, int rate, Bitmap bitmap, int score){
+    public User(long id, String name, int rate, Bitmap bitmap, int score){
            this.name = "";
            this.score = 0;
            this.rate = rate;
            this.bitmap = bitmap;
            this.id = 0;
     }
-    public user(){
+    public User(){
 
     }
 
