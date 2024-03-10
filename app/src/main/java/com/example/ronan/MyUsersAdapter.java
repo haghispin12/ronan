@@ -47,18 +47,19 @@ public class MyUsersAdapter extends RecyclerView.Adapter<MyUsersAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView username;
         ImageView userimage;
+        TextView ScoreUs;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             username = itemView.findViewById(R.id.UserName);
             userimage = itemView.findViewById(R.id.UserImg);
-
+            ScoreUs = itemView.findViewById(R.id.Score);
         }
 
         public void bind(final User item, final MyUsersAdapter.OnItemClickListener1 listener) {
             username.setText(item.getName());
-
+            ScoreUs.setText(item.getScore()+"");
             userimage.setImageBitmap(item.getBitmap());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

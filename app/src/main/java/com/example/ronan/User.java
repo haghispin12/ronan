@@ -20,11 +20,11 @@ public class User {
 //        id = i;
 //    }
     public User(long id, String name, int rate, Bitmap bitmap, int score){
-           this.name = "";
-           this.score = 0;
+           this.name = name;
+           this.score = score;
            this.rate = rate;
            this.bitmap = bitmap;
-           this.id = 0;
+           this.id = id;
     }
     public User(){
 

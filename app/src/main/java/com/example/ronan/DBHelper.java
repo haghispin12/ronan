@@ -125,10 +125,10 @@ import java.util.ArrayList;
             Cursor cursor = database.query(TABLE_RECORD, allColumns, null, null, null, null, null); // cursor points at a certain row
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                    @SuppressLint("Range") int rating = cursor.getInt(cursor.getColumnIndex(COLUMN_RATE));
-                    @SuppressLint("Range") int score = cursor.getInt(cursor.getColumnIndex(COLUMN_SCORE));
-                    @SuppressLint("Range") byte[] bytes = cursor.getBlob(cursor.getColumnIndex(COLUMN_PICTURE));
+                    String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
+                     int rating = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_RATE));
+                    int score = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_SCORE));
+                    byte[] bytes = cursor.getBlob(cursor.getColumnIndexOrThrow(COLUMN_PICTURE));
 
                     Bitmap bitmap = getImage(bytes);
                     @SuppressLint("Range") long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));

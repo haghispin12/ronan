@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ModelView<users> extends  ViewModel{
     LogIn ln;
-    User us;
+    User us1;
     exercise exs;
     MyUsersAdapter mua;
     RateActivity ra;
@@ -29,7 +29,7 @@ public class ModelView<users> extends  ViewModel{
         exs=new exercise();
         Vnum1 = new MutableLiveData<>();
         Vnum2 = new MutableLiveData<>();
-        us = new User();
+        us1 = new User();
         VScore = new MutableLiveData<>();
         rate = new MutableLiveData<>();
         myUsers = new MutableLiveData<>();
@@ -41,7 +41,7 @@ public class ModelView<users> extends  ViewModel{
         Vnum2.setValue(exs.getNum2());
         res = exs.getResult();
 
-        us.setScore(5);
+        us1.setScore(5);
 
 
     }
@@ -51,7 +51,7 @@ public class ModelView<users> extends  ViewModel{
         Vnum2.setValue(exs.getNum2());
         res = exs.getResult();
 
-            us.setScore(10);
+            us1.setScore(10);
         }
 
     public void VEtgar(){
@@ -59,18 +59,18 @@ public class ModelView<users> extends  ViewModel{
         Vnum1.setValue(exs.getNum1());
         Vnum2.setValue(exs.getNum2());
         res = exs.getResult();
-        us.setScore(15);
+        us1.setScore(15);
     }
     public void updateName(String s){
         name = s;
-        us.setName(s);
+        us1.setName(s);
     }
     public int VgetScore() {
-        return us.getScore();
+        return us1.getScore();
 
     }
     public void setUri(Uri uri){
-        us.setUri(uri);
+        us1.setUri(uri);
     }
 
 
@@ -82,7 +82,7 @@ public class ModelView<users> extends  ViewModel{
     }
     public  String getName(){
 
-            return us.getName();
+            return us1.getName();
     }
     public int getRes() {
         int res = Vnum1.getValue() * Vnum2.getValue();
@@ -90,13 +90,13 @@ public class ModelView<users> extends  ViewModel{
     }
 
     public int getRate(){
-        return us.getRate();
+        return us1.getRate();
     }
     ArrayList<User> Users = new ArrayList<>();
 
     public long VInsert(Context context){
         DBHelper dbHelper = new DBHelper(context);
-        long id = dbHelper.insert(us, context);
+        long id = dbHelper.insert(us1, context);
         getAll(context);
         return id;
     }
@@ -107,7 +107,7 @@ public class ModelView<users> extends  ViewModel{
     }
 
     public void setRate(int n) {
-        us.setRate(n);
+        us1.setRate(n);
     }
 
     public void addUser(){
