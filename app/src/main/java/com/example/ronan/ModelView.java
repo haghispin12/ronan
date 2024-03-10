@@ -105,6 +105,11 @@ public class ModelView<users> extends  ViewModel{
         Users = dbHelper.selectAll();
         myUsers.setValue(Users);
     }
+    public void vUpdate(Context context, User user){
+        DBHelper db = new DBHelper(context);
+        db.update(user);
+        getAll(context);
+    }
 
     public void setRate(int n) {
         us1.setRate(n);

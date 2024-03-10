@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -41,7 +44,10 @@ public class fragment extends Fragment {
     private Button btn;
     ModelView vm1;
     Uri uri;
+    MenuItem delete;
+    MenuItem edit;
     private RecyclerView rcShowAllUsers;
+    User selectUser;
     Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
 
@@ -63,6 +69,41 @@ public class fragment extends Fragment {
                 }
             }
     );
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu, menu);// חיבור המניו לאקס.מ.ל
+
+        delete = menu.findItem(R.id.Delete); // יצירת אובייקט של המחיקה
+
+        delete.setVisible(false); // להסתיר אותו אם רוצים בטעינה הראשונה
+
+        edit = menu.findItem(R.id.Edit);
+
+        edit.setVisible(false);
+
+        super.onCreateOptionsMenu(menu,inflater);}
+
+    @Override
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.Delete:
+
+                return true;
+            case R.id.Edit:
+                edt.setText(selectUser.getName());
+                tv.setText("Rate"+selectUser.getRate());
+                tv2.setText("Score"+selectUser.getScore());
+                img.setImageBitmap(selectUser.getBitmap());
+                btn.setText("update");
+
+                return true;
+        }
+        return false;
+
+    }
 
 
 
@@ -73,7 +114,7 @@ public class fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
          super.onCreateView(inflater, container, savedInstanceState);
-
+        setHasOptionsMenu(true);
     View view= inflater.inflate(R.layout.fragment_showusers,container,false);
     initView(view);
 
@@ -83,12 +124,18 @@ public class fragment extends Fragment {
         vm1.getAll(requireActivity());
         vm1.myUsers.observe(this, new Observer<ArrayList<User>>() {
 
+
+
             @Override
             public void onChanged(ArrayList<User> Users) {
                 MyUsersAdapter myUsersAdapter = new MyUsersAdapter(Users, new MyUsersAdapter.OnItemClickListener1() {
                     @Override
                     public void onItemClick(User item) {
                         Toast.makeText(requireActivity(),item.getName(),Toast.LENGTH_SHORT).show();
+                        selectUser = item;
+                        edit.setVisible(true);
+                        delete.setVisible(true);
+
                     }
                 });
                 rcShowAllUsers.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -124,13 +171,19 @@ public class fragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String str = edt.getText().toString();
+                if(str.equals("update")){
+                    edt.setText(selectUser.getName());
+                    vm1.vUpdate(requireActivity(),selectUser);
+                    tv.setText(selectUser.getScore());
+                    tv2.setText(selectUser.getRate());
+                    edt.setText("add user");
+                    img.setImageBitmap(selectUser.getBitmap());
+                }else{
                 long id = vm1.VInsert(requireActivity());
                 if(id>0){
                     showToast("success");
-
-
-
-                }else{showToast("failed");}
+                }else{showToast("failed");}}
 
             }
         });

@@ -91,34 +91,34 @@ import java.util.ArrayList;
         }
 
         // remove a specific user from the table
-//        public void deleteUser(User user)
-//        {
-//
-//        }
-//
-//        public void deleteById(long id )
-//        {
-//            database = getWritableDatabase(); // get access to write e data
-//            database.delete(TABLE_RECORD, COLUMN_ID + " = " + id, null);
-//            database.close(); // close the database
-//        }
-//
-//        // update a specific user
-//        public void update(User user)
-//        {
-//            database = getWritableDatabase();
-//            ContentValues values = new ContentValues();
-//            values.put(COLUMN_ID, user.getId());
-//            values.put(COLUMN_NAME, user.getUserName());
-//            values.put(COLUMN_RATE, user.getRating());
-//            // stored as Binary Large OBject ->  BLOB
-//            values.put(COLUMN_PICTURE, getBytes(user.getBitmap()));
-//            database.update(TABLE_RECORD, values, COLUMN_ID + "=" + user.getId(), null);
-//            database.close();
-//
-//        }
-//
-//        // return all rows in table
+        public void deleteUser(User user)
+        {
+
+        }
+
+        public void deleteById(long id )
+        {
+            database = getWritableDatabase(); // get access to write e data
+            database.delete(TABLE_RECORD, COLUMN_ID + " = " + id, null);
+            database.close(); // close the database
+        }
+
+        // update a specific user
+        public void update(User user)
+        {
+            database = getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_ID, user.getId());
+            values.put(COLUMN_NAME, user.getName());
+            values.put(COLUMN_RATE, user.getRate());
+            // stored as Binary Large OBject ->  BLOB
+            values.put(COLUMN_PICTURE, getBytes(user.getBitmap()));
+            database.update(TABLE_RECORD, values, COLUMN_ID + "=" + user.getId(), null);
+            database.close();
+
+        }
+
+        // return all rows in table
         public ArrayList<User> selectAll(){
             database = getReadableDatabase(); // get access to read the database
             ArrayList<User> users = new ArrayList<>();
