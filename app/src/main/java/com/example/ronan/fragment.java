@@ -3,7 +3,9 @@ package com.example.ronan;
 import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -90,7 +92,24 @@ public class fragment extends Fragment {
         int id = item.getItemId();
         switch (id) {
             case R.id.Delete:
+                delete.setVisible(true);
+                AlertDialog.Builder alert = new AlertDialog.Builder(requireActivity());
+                alert.setTitle("Delete user");
+                alert.setMessage("Are you sure you want to delete this user?");
+                alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        vm1.vDeleteUser(requireActivity(),selectUser.getId());
 
+                    }
+                });
+                alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alert.show();
                 return true;
             case R.id.Edit:
                 edt.setText(selectUser.getName());
@@ -171,14 +190,15 @@ public class fragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String str = edt.getText().toString();
+                String str = btn.getText().toString();
                 if(str.equals("update")){
-                    edt.setText(selectUser.getName());
+                    selectUser.setName(edt.getText().toString());
                     vm1.vUpdate(requireActivity(),selectUser);
-                    tv.setText(selectUser.getScore());
-                    tv2.setText(selectUser.getRate());
-                    edt.setText("add user");
-                    img.setImageBitmap(selectUser.getBitmap());
+                    edt.setText("");
+                    tv.setText("Score:");
+                    tv2.setText("Rate");
+                    btn.setText("add user");
+                    img.setImageBitmap(null);
                 }else{
                 long id = vm1.VInsert(requireActivity());
                 if(id>0){

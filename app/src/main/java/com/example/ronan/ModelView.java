@@ -100,6 +100,11 @@ public class ModelView<users> extends  ViewModel{
         getAll(context);
         return id;
     }
+    public void vDeleteUser(Context context, long id){
+        DBHelper db = new DBHelper(context);
+        db.deleteById(id);
+        getAll(context);
+    }
     public void getAll(Context context){
         DBHelper dbHelper = new DBHelper(context);
         Users = dbHelper.selectAll();
