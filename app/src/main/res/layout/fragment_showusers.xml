@@ -9,61 +9,61 @@
         android:orientation="vertical"
         android:background="@color/white">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        tools:ignore="ExtraText">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        tools:ignore="ExtraText">-->
 
-        <EditText
-            android:id="@+id/EditText"
-            android:layout_width="210dp"
-            android:layout_height="59dp"
-            android:layout_gravity="center" />
+<!--        <EditText-->
+<!--            android:id="@+id/EditText"-->
+<!--            android:layout_width="210dp"-->
+<!--            android:layout_height="59dp"-->
+<!--            android:layout_gravity="center" />-->
 
-        <TextView
-            android:id="@+id/TV1"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Rate" />
+<!--        <TextView-->
+<!--            android:id="@+id/TV1"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:text="Rate" />-->
 
-        <TextView
-            android:id="@+id/TV2"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="score" />
+<!--        <TextView-->
+<!--            android:id="@+id/TV2"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:text="score" />-->
 
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Add Picture" />
+<!--    <Button-->
+<!--        android:id="@+id/button5"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:text="Add Picture" />-->
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="198dp"
-        android:layout_height="263dp"
-        android:layout_gravity="center"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView2"-->
+<!--        android:layout_width="198dp"-->
+<!--        android:layout_height="263dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        tools:srcCompat="@tools:sample/backgrounds/scenic" />-->
 
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Add User" />
+<!--    <Button-->
+<!--        android:id="@+id/button6"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:text="Add User" />-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcShowUsers"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item" />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rcShowUsers"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:listitem="@layout/item" />-->
 </LinearLayout>
 
 

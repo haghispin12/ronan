@@ -3,20 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
-      <item
-          android:id="@+id/Delete"
-          android:orderInCategory="100"
-          android:icon="@android:drawable/ic_menu_delete"
-          app:showAsAction="always"
-          android:title="sss"
-          />
-    <item
-        android:id="@+id/Edit"
-        android:orderInCategory="10"
-        app:showAsAction="always"
-        android:icon="@android:drawable/ic_menu_edit"
-        android:title="sss"
+<!--      <item-->
+<!--          android:id="@+id/Delete"-->
+<!--          android:orderInCategory="100"-->
+<!--          android:icon="@android:drawable/ic_menu_delete"-->
+<!--          app:showAsAction="always"-->
+<!--          android:title="sss"-->
+<!--          />-->
+<!--    <item-->
+<!--        android:id="@+id/Edit"-->
+<!--        android:orderInCategory="10"-->
+<!--        app:showAsAction="always"-->
+<!--        android:icon="@android:drawable/ic_menu_edit"-->
+<!--        android:title="sss"-->
 
 
-        />
+<!--        />-->
 </menu>

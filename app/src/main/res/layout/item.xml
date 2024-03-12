@@ -9,27 +9,27 @@
 
 
 
-    <ImageView
-        android:id="@+id/UserImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+<!--    <ImageView-->
+<!--        android:id="@+id/UserImg"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp" />-->
 
 
-    <TextView
+<!--    <TextView-->
 
-        android:id="@+id/UserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:layout_marginStart="16dp"
-        />
+<!--        android:id="@+id/UserName"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Name"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/Score"
-        android:layout_marginStart="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Score" />
+<!--    <TextView-->
+<!--        android:id="@+id/Score"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Score" />-->
 
 </LinearLayout>
 

@@ -1,17 +1,8 @@
-package com.example.ronan;
-
-import static com.example.ronan.R.id.rcShowUsers;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-
-public class ShowAllFruits extends AppCompatActivity {
+//package com.example.ronan.MathProject;
+//
+//import androidx.appcompat.app.AppCompatActivity;
+//
+//public class ShowAllFruits extends AppCompatActivity {
 
 //    private RecyclerView rcShowFruits;
 //
@@ -38,4 +29,4 @@ public class ShowAllFruits extends AppCompatActivity {
 //        rcShowFruits.setAdapter(myFruitsAdapter);
 //        rcShowFruits.setHasFixedSize(true);
 //    }
-}
+//}

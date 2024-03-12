@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RateActivity"
-    android:orientation="vertical"
-    android:gravity="center"
-   >
+    android:layout_height="match_parent">
+<!--    tools:context=".RateActivity"-->
+<!--    android:orientation="vertical"-->
+<!--    android:gravity="center"-->
+<!--   >-->
 
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:max="100"
-        android:min="0"
-        android:progress="50" />
+<!--    <SeekBar-->
+<!--        android:id="@+id/seekBar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="58dp"-->
+<!--        android:max="100"-->
+<!--        android:min="0"-->
+<!--        android:progress="50" />-->
 
-    <Button
-        android:layout_width="152dp"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/save"
-        tools:ignore="InvalidId" />
+<!--    <Button-->
+<!--        android:layout_width="152dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Save"-->
+<!--        android:id="@+id/save"-->
+<!--        tools:ignore="InvalidId" />-->
 
 </LinearLayout>
