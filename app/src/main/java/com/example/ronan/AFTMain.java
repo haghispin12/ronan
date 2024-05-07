@@ -28,9 +28,6 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
     private final int FINE_PERMISSION_CODE = 1;
     Location currentLocation;
     private FusedLocationProviderClient fusedLocationClient;
-    private int requestCode;
-    private String[] permissions;
-    private int[] grantResults;
 
 
     @Override
@@ -42,40 +39,14 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             requestLocationPermission();
-        } else {
-            //Location granted
-            //Do Something
         }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
 
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.id_map);
-//        mapFragment.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.id_map);
+        mapFragment.getMapAsync(this);
     }
-
-    private void requestLocationPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            Toast.makeText(this, "Location is required for this app to function properly", Toast.LENGTH_SHORT).show();
-        }
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Location granted
-                //Do something(Location updates)
-            } else {
-                //Location permission denied
-                //Handle the denial (show msg or disable location services)
-                Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
     private void getLastLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},FINE_PERMISSION_CODE);
@@ -94,17 +65,38 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         });
     }
 
+
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        LatLng location = new LatLng(31.7683, 35.2137);
-        googleMap.addMarker(new MarkerOptions().position(location).title("Jerusalem"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,12));
+        LatLng myLocation = new LatLng(31.771959,35.217018);
+        googleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation,12));
         googleMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
-    public void onRequestPermissionsResult(int requestCode, @NonNull  String[] permissions, @NonNull int[] grantResults){
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    private void requestLocationPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            Toast.makeText(this, "Location is required for this app to function properly", Toast.LENGTH_SHORT).show();
+        }
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
     }
+
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == FINE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLastLocation();
+            } else {
+                Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     }
 
