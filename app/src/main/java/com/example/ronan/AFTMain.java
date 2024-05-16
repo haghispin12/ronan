@@ -26,6 +26,7 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
     private static int LOCATION_PERMISSION_REQUEST_CODE = 100;
     private GoogleMap googleMap;
     private final int FINE_PERMISSION_CODE = 1;
+    int n =10;
     Location currentLocation;
     private FusedLocationProviderClient fusedLocationClient;
 
