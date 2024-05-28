@@ -46,6 +46,11 @@
             android:layout_width="wrap_content"
             android:id="@+id/Tzemach"
             android:text="tzemach"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Nov"
+            android:text="Nov"/>
 
     </LinearLayout>
 <!--    <androidx.viewpager.widget.ViewPager-->

@@ -59,11 +59,16 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
     private List<LatLng> list;
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
+    PolygonUtils polygonUtils;
+    List<double[]> LAT;
+    double VerticesSize;
+    LatLng temporaryLocation;
     private Button buttonG;
     private final LatLng Tiberia = new LatLng(32.79221,35.53124);
     private final LatLng Gamla = new LatLng(32.9052,35.7487);
     private Button buttonH;
     private Button buttonT;
+    private Button buttonN;
     private FusedLocationProviderClient fusedLocationClient;
 
 
@@ -75,6 +80,7 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         buttonG = findViewById(R.id.Gamla);
         buttonH = findViewById(R.id.Haspin);
         buttonT = findViewById(R.id.Tzemach);
+        buttonN = findViewById(R.id.Nov);
 
 
 
@@ -107,6 +113,29 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
                 setLocation(35.587569,32.704864);
             }
         });
+        buttonN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setLocation(32.8325,35.783097);
+                temporaryLocation = new LatLng(32.8325,35.783097);
+                List<LatLng> polygonVertices = new ArrayList<>();
+                polygonVertices.addAll(createRoundPolygon(temporaryLocation));
+
+                boolean isInside = PolygonUtils.isPointInPolygon(temporaryLocation,polygonVertices);
+                if(isInside){
+                    Toast.makeText(AFTMain.this,"U are within range of the destination", LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(AFTMain.this,"U are not within range of your destination",LENGTH_SHORT).show();
+                }
+
+
+
+
+            }
+        });
+
+        //
+
     }
 
 
@@ -141,8 +170,6 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
     }
     public void addPolygon(double latitude, double longitude){
         LatLng latLng = new LatLng(latitude, longitude);
-//        Polygon polygon = googleMap.addPolygon(new PolygonOptions().add(latLng,Tiberia,Gamla)
-//                        .strokeColor(Color.parseColor("#FFC107")).fillColor(Color.parseColor("#FFC107")));
         PolygonOptions polygonOptions = new PolygonOptions();
         polygonOptions.addAll(createRoundPolygon(latLng));
         polygonOptions.strokeWidth(5);
@@ -189,6 +216,7 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
             double lng = centre.longitude+radius*Math.sin(theta)/Math.cos(Math.toRadians(centre.latitude));
             points.add(new LatLng(lat, lng));
         }points.add(points.get(0));
+        VerticesSize = points.size();
         return points;
     }
 
