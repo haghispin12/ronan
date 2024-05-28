@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,8 +19,35 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:layout_gravity="center"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/id_map"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+    <Button
+         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/Gamla"
+        android:text="Gamla"
+        />
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/Haspin"
+            android:text="Haspin"/>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/Tzemach"
+            android:text="tzemach"/>
+
+    </LinearLayout>
 <!--    <androidx.viewpager.widget.ViewPager-->
 <!--        android:id="@+id/viewPager"-->
 <!--        android:layout_width="match_parent"-->
@@ -35,4 +62,4 @@
 <!--        android:layout_height="wrap_content"-->
 <!--        tools:ignore="UnknownId" />-->
 
-    </RelativeLayout>
+    </LinearLayout>
