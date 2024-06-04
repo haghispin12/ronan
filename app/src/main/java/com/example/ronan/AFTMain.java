@@ -38,11 +38,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 
@@ -67,6 +69,7 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
     private final LatLng Tiberia = new LatLng(32.79221,35.53124);
     private final LatLng Gamla = new LatLng(32.9052,35.7487);
     private Button buttonH;
+
     private Button buttonT;
     private Button buttonN;
     private FusedLocationProviderClient fusedLocationClient;
@@ -167,6 +170,23 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12));
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().isCompassEnabled();
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(@NonNull LatLng latLng) {
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("marked location");
+                googleMap.addMarker(markerOptions);
+                List<LatLng> polygonVertices = new ArrayList<>();
+                polygonVertices.addAll(createRoundPolygon(latLng));
+
+                boolean isInside = PolygonUtils.isPointInPolygon(latLng,polygonVertices);
+                if(isInside){
+                    Toast.makeText(AFTMain.this,"U are within range of the destination", LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(AFTMain.this,"U are not within range of your destination",LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
     public void addPolygon(double latitude, double longitude){
         LatLng latLng = new LatLng(latitude, longitude);
