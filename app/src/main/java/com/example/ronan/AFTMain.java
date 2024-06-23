@@ -101,7 +101,7 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
                 if(isInside){
                     Toast.makeText(AFTMain.this, "u arein range of destination", LENGTH_SHORT).show();
                     startService(serviceIntent);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(temporaryLocation, 15));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(temporaryLocation, 13));
                 }
                     Toast.makeText(AFTMain.this,"U are not in range",LENGTH_SHORT).show();
             }
