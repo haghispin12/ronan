@@ -63,7 +63,7 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aftmain);
         buttonG = findViewById(R.id.SetPolygon);
-        buttonH = findViewById(R.id.Haspin);
+        buttonH = findViewById(R.id.check);
         buttonT = findViewById(R.id.CurrentLocation);
         buttonN = findViewById(R.id.Nov);
         serviceIntent = new Intent(this, SoundService.class);
@@ -91,14 +91,19 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         buttonG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addPolygon(temporaryLocation.latitude,temporaryLocation.longitude);
+               addPolygon(temporaryLocation.latitude,temporaryLocation.longitude);
             }
         });
         buttonH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setLocation(32.84571, 35.79295);
-                addPolygon(32.84571, 35.79295);
+                boolean isInside = PolygonUtils.isPointInPolygon(temporaryLocation,verticesPolygon);
+                if(isInside){
+                    Toast.makeText(AFTMain.this, "u arein range of destination", LENGTH_SHORT).show();
+                    startService(serviceIntent);
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(temporaryLocation, 15));
+                }
+                    Toast.makeText(AFTMain.this,"U are not in range",LENGTH_SHORT).show();
             }
         });
 
@@ -177,6 +182,7 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
 
         LatLng latLng = new LatLng(latitude, longitude);
         centrePolygon = latLng;
+        verticesPolygon = createRoundPolygon(centrePolygon);
         PolygonOptions polygonOptions = new PolygonOptions();
         polygonOptions.addAll(createRoundPolygon(latLng));
         polygonOptions.strokeWidth(5);

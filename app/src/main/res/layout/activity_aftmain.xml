@@ -30,8 +30,8 @@
         <Button
             android:layout_height="50dp"
             android:layout_width="70dp"
-            android:id="@+id/Haspin"
-            android:text="Haspin"/>
+            android:id="@+id/check"
+            android:text="check"/>
         <Button
             android:layout_height="50dp"
             android:layout_width="70dp"
