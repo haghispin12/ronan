@@ -4,33 +4,21 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.Manifest;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.IBinder;
+import android.os.PowerManager;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
-
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,12 +30,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,20 +41,19 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
     private final int FINE_PERMISSION_CODE = 1;
     int n = 10;
     Location currentLocation;
-    private List<LatLng> list;
-    private TabLayout tabLayout;
-    private ViewPager2 viewPager;
-    PolygonUtils polygonUtils;
     List<double[]> LAT;
     double VerticesSize;
     LatLng temporaryLocation;
     private Button buttonG;
-    private final LatLng Tiberia = new LatLng(32.79221,35.53124);
-    private final LatLng Gamla = new LatLng(32.9052,35.7487);
     private Button buttonH;
-
     private Button buttonT;
+    private LatLng centrePolygon;
+    private List<LatLng> verticesPolygon;
+    private List<Polygon> polygons = new ArrayList<>();
+    private List<Marker> markers = new ArrayList<>();
+    private Button ss;
     private Button buttonN;
+    private Intent serviceIntent;
     private FusedLocationProviderClient fusedLocationClient;
 
 
@@ -80,11 +62,20 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aftmain);
-        buttonG = findViewById(R.id.Gamla);
+        buttonG = findViewById(R.id.SetPolygon);
         buttonH = findViewById(R.id.Haspin);
-        buttonT = findViewById(R.id.Tzemach);
+        buttonT = findViewById(R.id.CurrentLocation);
         buttonN = findViewById(R.id.Nov);
+        serviceIntent = new Intent(this, SoundService.class);
+        ss = findViewById(R.id.stop_Sound);
 
+
+        ss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopService(serviceIntent);
+            }
+        });
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -100,45 +91,40 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         buttonG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setLocation(32.9052,35.7487);
+                addPolygon(temporaryLocation.latitude,temporaryLocation.longitude);
             }
         });
         buttonH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setLocation(32.84571,35.79295);
-                addPolygon(32.84571,35.79295);
+                setLocation(32.84571, 35.79295);
+                addPolygon(32.84571, 35.79295);
             }
         });
+
         buttonT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setLocation(35.587569,32.704864);
+                setLocation(currentLocation.getLatitude(),currentLocation.getLongitude());
             }
         });
         buttonN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setLocation(32.8325,35.783097);
-                temporaryLocation = new LatLng(32.8325,35.783097);
+                setLocation(32.8325, 35.783097);
+                temporaryLocation = new LatLng(32.8325, 35.783097);
                 List<LatLng> polygonVertices = new ArrayList<>();
                 polygonVertices.addAll(createRoundPolygon(temporaryLocation));
 
-                boolean isInside = PolygonUtils.isPointInPolygon(temporaryLocation,polygonVertices);
-                if(isInside){
-                    Toast.makeText(AFTMain.this,"U are within range of the destination", LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(AFTMain.this,"U are not within range of your destination",LENGTH_SHORT).show();
+                boolean isInside = PolygonUtils.isPointInPolygon(temporaryLocation, polygonVertices);
+                if (isInside) {
+                    Toast.makeText(AFTMain.this, "U are within range of the destination", LENGTH_SHORT).show();
+                    startService(serviceIntent);
+                } else {
+                    Toast.makeText(AFTMain.this, "U are not within range of your destination", LENGTH_SHORT).show();
                 }
-
-
-
-
             }
         });
-
-        //
-
     }
 
 
@@ -148,23 +134,25 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
             return;
         }
         fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-          @Override
-           public void onSuccess(Location location) {
-                if (location != null) {
-                currentLocation = location;
-                setLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
-         } else {
-                 Toast.makeText(AFTMain.this, "location not found", LENGTH_SHORT).show();
-         }
-         }
-         }
+             @Override
+            public void onSuccess(Location location) {
+            if (location != null) {
+            currentLocation = location;
+             setLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
+           } else {
+                Toast.makeText(AFTMain.this, "location not found", LENGTH_SHORT).show();
+                     }
+          }
+           }
         );
     }
 
 
+
+
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        this.googleMap=googleMap;
+        this.googleMap = googleMap;
         LatLng myLocation = new LatLng(32.79221, 35.53124);
         googleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12));
@@ -173,34 +161,36 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull LatLng latLng) {
-                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("marked location");
-                googleMap.addMarker(markerOptions);
-                List<LatLng> polygonVertices = new ArrayList<>();
-                polygonVertices.addAll(createRoundPolygon(latLng));
+                addMarker(latLng);
+                temporaryLocation = latLng;
 
-                boolean isInside = PolygonUtils.isPointInPolygon(latLng,polygonVertices);
-                if(isInside){
-                    Toast.makeText(AFTMain.this,"U are within range of the destination", LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(AFTMain.this,"U are not within range of your destination",LENGTH_SHORT).show();
-                }
 
             }
         });
     }
-    public void addPolygon(double latitude, double longitude){
+
+    public void addPolygon(double latitude, double longitude) {
+        for(Polygon polygon : polygons){
+            polygon.remove();
+        }
+        polygons.clear();
+
         LatLng latLng = new LatLng(latitude, longitude);
+        centrePolygon = latLng;
         PolygonOptions polygonOptions = new PolygonOptions();
         polygonOptions.addAll(createRoundPolygon(latLng));
         polygonOptions.strokeWidth(5);
         polygonOptions.fillColor(0x5500ff00);
         Polygon polygon = googleMap.addPolygon(polygonOptions);
+        verticesPolygon = createRoundPolygon(latLng);
+
+        polygons.add(polygon);
     }
 
 
     public void setLocation(double latitude, double longitude) {
         LatLng newLocation = new LatLng(latitude, longitude);
-         googleMap.addMarker(new MarkerOptions().position(newLocation).title("My Location"));
+        googleMap.addMarker(new MarkerOptions().position(newLocation).title("My Location"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 12));
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().isCompassEnabled();
@@ -224,21 +214,30 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
     }
-    public List<LatLng> createRoundPolygon(LatLng centre){
+
+    public List<LatLng> createRoundPolygon(LatLng centre) {
         double sides = 36;
         double radiusKm = 5;
-        double radius = radiusKm/111.32;
-        double angleStep = 2*Math.PI/sides;
+        double radius = radiusKm / 111.32;
+        double angleStep = 2 * Math.PI / sides;
         List<LatLng> points = new ArrayList<>();
-        for(int i = 0; i<sides;i++){
-            double theta = i*angleStep;
-            double lat = centre.latitude+radius*Math.cos(theta);
-            double lng = centre.longitude+radius*Math.sin(theta)/Math.cos(Math.toRadians(centre.latitude));
+        for (int i = 0; i < sides; i++) {
+            double theta = i * angleStep;
+            double lat = centre.latitude + radius * Math.cos(theta);
+            double lng = centre.longitude + radius * Math.sin(theta) / Math.cos(Math.toRadians(centre.latitude));
             points.add(new LatLng(lat, lng));
-        }points.add(points.get(0));
+        }
+        points.add(points.get(0));
         VerticesSize = points.size();
         return points;
     }
-
+    public void addMarker(LatLng latLng){
+        for(Marker marker : markers){
+            marker.remove();
+        }
+        markers.clear();
+        Marker marker = googleMap.addMarker(new MarkerOptions().position(latLng).title("New Marker"));
+        markers.add(marker);
+    }
 }
 

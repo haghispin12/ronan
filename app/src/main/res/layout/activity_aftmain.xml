@@ -5,66 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:background="?attr/colorPrimary"-->
-<!--        app:title="My Toolbar"-->
-<!--        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
-<!--        android:elevation="4dp"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        tools:ignore="InvalidId" />-->
+
 
     <fragment
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="4"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/id_map"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
         >
     <Button
-         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/Gamla"
-        android:text="Gamla"
+         android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:id="@+id/SetPolygon"
+        android:text="SetPolygon"
         />
         <Button
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_width="70dp"
             android:id="@+id/Haspin"
             android:text="Haspin"/>
         <Button
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:id="@+id/Tzemach"
-            android:text="tzemach"/>
+            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:id="@+id/CurrentLocation"
+            android:text="CurrentLocation"/>
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
             android:id="@+id/Nov"
             android:text="Nov"/>
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:id="@+id/stop_Sound"
+            android:text="StopSound"/>
 
     </LinearLayout>
-<!--    <androidx.viewpager.widget.ViewPager-->
-<!--        android:id="@+id/viewPager"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_below="@+id/id_map"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        tools:ignore="UnknownId" />-->
-
-<!--    <com.google.android.material.tabs.TabLayout-->
-<!--        android:id="@+id/tabLayout"-->
-<!--        android:layout_below="@+id/viewPager"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        tools:ignore="UnknownId" />-->
-
     </LinearLayout>
