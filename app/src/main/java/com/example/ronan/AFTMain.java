@@ -71,9 +71,9 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aftmain);
         buttonG = findViewById(R.id.SetPolygon);
-        buttonH = findViewById(R.id.check);
-        buttonT = findViewById(R.id.CurrentLocation);
-        buttonN = findViewById(R.id.Nov);
+//        buttonH = findViewById(R.id.check);
+//        buttonT = findViewById(R.id.CurrentLocation);
+//        buttonN = findViewById(R.id.Nov);
         serviceIntent = new Intent(this, SoundService.class);
         ss = findViewById(R.id.stop_Sound);
 
@@ -103,43 +103,43 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
                 addPolygon(temporaryLocation.latitude,temporaryLocation.longitude);
             }
         });
-        buttonH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean isInside = PolygonUtils.isPointInPolygon(temporaryLocation, verticesPolygon);
-                if (isInside) {
-                    Toast.makeText(AFTMain.this, "u arein range of destination", LENGTH_SHORT).show();
-                    startService(serviceIntent);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(temporaryLocation, 13));
-                }
-                Toast.makeText(AFTMain.this, "U are not in range", LENGTH_SHORT).show();
-            }
-        });
+//        buttonH.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                boolean isInside = PolygonUtils.isPointInPolygon(temporaryLocation, verticesPolygon);
+//                if (isInside) {
+//                    Toast.makeText(AFTMain.this, "u arein range of destination", LENGTH_SHORT).show();
+//                    startService(serviceIntent);
+//                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(temporaryLocation, 13));
+//                }
+//                Toast.makeText(AFTMain.this, "U are not in range", LENGTH_SHORT).show();
+//            }
+//        });
 
 
-        buttonT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
-            }
-        });
-        buttonN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setLocation(32.8325, 35.783097);
-                temporaryLocation = new LatLng(32.8325, 35.783097);
-                List<LatLng> polygonVertices = new ArrayList<>();
-                polygonVertices.addAll(createRoundPolygon(temporaryLocation));
-
-                boolean isInside = PolygonUtils.isPointInPolygon(temporaryLocation, polygonVertices);
-                if (isInside) {
-                    Toast.makeText(AFTMain.this, "U are within range of the destination", LENGTH_SHORT).show();
-                    startService(serviceIntent);
-                } else {
-                    Toast.makeText(AFTMain.this, "U are not within range of your destination", LENGTH_SHORT).show();
-                }
-            }
-        });
+//        buttonT.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                setLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
+//            }
+//        });
+//        buttonN.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                setLocation(32.8325, 35.783097);
+//                temporaryLocation = new LatLng(32.8325, 35.783097);
+//                List<LatLng> polygonVertices = new ArrayList<>();
+//                polygonVertices.addAll(createRoundPolygon(temporaryLocation));
+//
+//                boolean isInside = PolygonUtils.isPointInPolygon(temporaryLocation, polygonVertices);
+//                if (isInside) {
+//                    Toast.makeText(AFTMain.this, "U are within range of the destination", LENGTH_SHORT).show();
+//                    startService(serviceIntent);
+//                } else {
+//                    Toast.makeText(AFTMain.this, "U are not within range of your destination", LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 //        locationCallback = new LocationCallback() {
 //            @Override
 //            public void onLocationResult(LocationResult locationResult) {

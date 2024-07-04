@@ -27,21 +27,21 @@
         android:id="@+id/SetPolygon"
         android:text="SetPolygon"
         />
-        <Button
-            android:layout_height="50dp"
-            android:layout_width="70dp"
-            android:id="@+id/check"
-            android:text="check"/>
-        <Button
-            android:layout_height="50dp"
-            android:layout_width="70dp"
-            android:id="@+id/CurrentLocation"
-            android:text="CurrentLocation"/>
-        <Button
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:id="@+id/Nov"
-            android:text="Nov"/>
+<!--        <Button-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_width="70dp"-->
+<!--            android:id="@+id/check"-->
+<!--            android:text="check"/>-->
+<!--        <Button-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_width="70dp"-->
+<!--            android:id="@+id/CurrentLocation"-->
+<!--            android:text="CurrentLocation"/>-->
+<!--        <Button-->
+<!--            android:layout_width="70dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:id="@+id/Nov"-->
+<!--            android:text="Nov"/>-->
         <Button
             android:layout_width="70dp"
             android:layout_height="50dp"
