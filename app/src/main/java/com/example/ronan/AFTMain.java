@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -45,6 +44,7 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
     private final int FINE_PERMISSION_CODE = 1;
     int n = 10;
     Location currentLocation;
+    private int x = 0;
     List<double[]> LAT;
     double VerticesSize;
     LatLng temporaryLocation;
@@ -58,6 +58,7 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
     private List<Marker> markers = new ArrayList<>();
     private Button ss;
     private Button buttonN;
+    private Marker currentLocationMarker;
     private LocationCallback locationCallback;
     private Location userLocation;
     private Intent serviceIntent;
@@ -88,18 +89,18 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
 
             requestLocationPermission();
         }
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        getLastLocation();
-
-
+        //getLastLocation();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.id_map);
         mapFragment.getMapAsync(this);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        startLocationUpdates();
 
 
         buttonG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addPolygon(temporaryLocation.latitude, temporaryLocation.longitude);
+
+                addPolygon(temporaryLocation.latitude,temporaryLocation.longitude);
             }
         });
         buttonH.setOnClickListener(new View.OnClickListener() {
@@ -139,22 +140,22 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
                 }
             }
         });
-        locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
+//        locationCallback = new LocationCallback() {
+//            @Override
+//            public void onLocationResult(LocationResult locationResult) {
+//                if (locationResult == null) {
+//                    return;
+//                }
+//                for (Location location : locationResult.getLocations()) {
+//
+//                    userLocation = location;
+//                    // Handle the location object
+//                    Log.d("Location", "Lat: " + location.getLatitude() + ", Lon: " + location.getLongitude());
+//                }
+//            }
+//        };
 
-                    userLocation = location;
-                    // Handle the location object
-                    Log.d("Location", "Lat: " + location.getLatitude() + ", Lon: " + location.getLongitude());
-                }
-            }
-        };
 
-        startLocationUpdates();
     }
 
 
@@ -182,11 +183,14 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         this.googleMap = googleMap;
-        LatLng myLocation = new LatLng(32.79221, 35.53124);
-        googleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12));
+//        LatLng myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+//        googleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12));
         googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.getUiSettings().isCompassEnabled();
+        googleMap.getUiSettings().setCompassEnabled(true);
+        startLocationUpdates();
+
+
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull LatLng latLng) {
@@ -197,11 +201,42 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
     }
+    private void updateLocationOnMap(Location location){
+        if(googleMap == null){
+            return;
+        }
+        LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+        if(currentLocationMarker!= null){
+            currentLocationMarker.remove();
+        }
+        currentLocationMarker = googleMap.addMarker(new MarkerOptions().position(latLng).title("Current Location"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+    }
     private void startLocationUpdates() {
         LocationRequest locationRequest = new LocationRequest.Builder(5000) // 5 seconds interval
                 .setMinUpdateIntervalMillis(5000) // 5 seconds fastest interval
                 .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
                 .build();
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if(locationResult == null){
+                    return;
+                }
+                for(Location location : locationResult.getLocations()){
+                    updateLocationOnMap(location);
+                    isInsidePolygon(location);
+//                    boolean isInside = PolygonUtils.isPointInPolygon(temporaryLocation, verticesPolygon);
+//                    if (isInside) {
+//                        Toast.makeText(AFTMain.this, "u arein range of destination", LENGTH_SHORT).show();
+//                        startService(serviceIntent);
+//                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(temporaryLocation, 13));
+                   // }
+//                    Toast.makeText(AFTMain.this, "U are not in range", LENGTH_SHORT).show();
+                }
+            }
+        };
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Request permissions
@@ -210,6 +245,26 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         }
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
     }
+
+    private void isInsidePolygon(Location location) {
+        LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+//        List<LatLng> polygonVertices = new ArrayList<>();
+//        polygonVertices.addAll(createRoundPolygon(latLng));
+        boolean isInside = PolygonUtils.isPointInPolygon(latLng,verticesPolygon );
+        if (!isInside) {
+            x=1;
+        }
+        else
+        {
+            Toast.makeText(AFTMain.this, "u arein range of destination", LENGTH_SHORT).show();
+            startService(serviceIntent);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
+        }
+        //Toast.makeText(AFTMain.this, "U are not in range", LENGTH_SHORT).show();
+    }
+
+
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -242,7 +297,7 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         polygonOptions.strokeWidth(5);
         polygonOptions.fillColor(0x5500ff00);
         Polygon polygon = googleMap.addPolygon(polygonOptions);
-        verticesPolygon = createRoundPolygon(latLng);
+//        verticesPolygon = createRoundPolygon(latLng);
 
         polygons.add(polygon);
     }
@@ -268,7 +323,7 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == FINE_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLastLocation();
+                startLocationUpdates();
             } else {
                 Toast.makeText(this, "Location permission denied", LENGTH_SHORT).show();
             }
@@ -300,5 +355,6 @@ public class AFTMain extends AppCompatActivity implements OnMapReadyCallback {
         Marker marker = googleMap.addMarker(new MarkerOptions().position(latLng).title("New Marker"));
         markers.add(marker);
     }
+
 }
 

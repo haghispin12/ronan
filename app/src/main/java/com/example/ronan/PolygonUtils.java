@@ -8,6 +8,10 @@ public class PolygonUtils {
       double VerticesSize;
     //Method to check if a point is inside a polygon
     public static boolean isPointInPolygon(LatLng point, List<LatLng> vertices){
+        if(point == null || vertices == null){
+            return false;
+        }
+
         int intersectCount = 0;
 
         for(int i = 0;i<vertices.size();i++){
